@@ -84,22 +84,22 @@ contract TagTreasury is Ownable  {
         return true;
     }
 
-    function setMaxLevel( uint256 _MaxLevel ) onlyOwner isInactive public returns ( bool ) {
+    function setMaxLevel( uint256 _MaxLevel ) onlyOwner  public returns ( bool ) {
         MaxLevel = _MaxLevel;
         return true;
     }
 
-    function setLevel( uint256 _Level , uint256 _percent , uint256 _salesLevel ) onlyOwner isInactive public returns ( bool ) {
+    function setLevel( uint256 _Level , uint256 _percent , uint256 _salesLevel ) onlyOwner  public returns ( bool ) {
         Levels[_Level] = Limits( _percent , _salesLevel );
         return true;
     }
 
-    function setUser( address _child , address parent , uint256 level , uint256 sales , uint256 share ) onlyOwner isInactive public returns ( bool ) {
+    function setUser( address _child , address parent , uint256 level , uint256 sales , uint256 share ) onlyOwner  public returns ( bool ) {
         Users[_child ] = userData( parent , level , sales , share );
         return true;
     }
 
-    function setUserLevel( address _child , uint256 _level ) onlyOwner isInactive public returns ( bool ) {
+    function setUserLevel( address _child , uint256 _level ) onlyOwner  public returns ( bool ) {
         Users[_child ].level = _level;
         return true;
     }
@@ -156,6 +156,7 @@ contract TagTreasury is Ownable  {
             emit alloc( _addr , _value.mul(diff).div(10000) );
             value = Levels[ Users[ _addr ].level ].percent;
         }else if( _shareRatio == Levels[ Users[ _addr ].level ].percent ){
+            emit alloc( _addr , 0 );
             value = Levels[ Users[ _addr ].level ].percent;
         }
         return value;
